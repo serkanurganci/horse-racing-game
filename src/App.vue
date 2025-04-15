@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import Home from "./views/Home.vue";
+</script>
 
 <template>
-  <div>horse racing game</div>
+  <div><Home /></div>
 </template>
 
 <style scoped></style>
