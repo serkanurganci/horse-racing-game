@@ -1,3 +1,11 @@
 {
-  "generateProgram": "Generate Program"
+  "title": "Program",
+  "generateProgram": "Generate Program",
+  "datatable": {
+    "headers": {
+      "position": "Position",
+      "name": "Name"
+    }
+  },
+  "lapTitle": "{st}ST Lap - {m}m"
 }

@@ -12,7 +12,8 @@ import { useStore } from "vuex";
 
 const store = useStore();
 
-const generateProgram = () => {
-  store.dispatch("programs/generateRaces");
+const generateProgram = async () => {
+  await store.dispatch("horses/generateHorses");
+  await store.dispatch("programs/generateRaces");
 };
 </script>

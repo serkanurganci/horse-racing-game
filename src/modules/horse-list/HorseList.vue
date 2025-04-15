@@ -1,5 +1,5 @@
 <template>
-  <div class="horse-list">
+  <div>
     <h2>{{ $t("horseList.title") }} (1 - {{ horses.length }})</h2>
     <HorseListDatatable :headers="headers" :horses="horses" />
   </div>
