@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import HorseList from "@/components/HorseList.vue";
+import { HorseList } from "@/modules/horse-list";
 import { useStore } from "vuex";
 
 const store = useStore();
