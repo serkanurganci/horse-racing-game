@@ -1,13 +1,13 @@
 <template>
   <div class="horse-list">
-    <h2>Horse List (1 - {{ horses.length }})</h2>
+    <h2>{{ $t("horseList.title") }} (1 - {{ horses.length }})</h2>
     <table>
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Condition</th>
-          <th>Color</th>
+          <th>{{ $t("horseList.table.headers.name") }}</th>
+          <th>{{ $t("horseList.table.headers.condition") }}</th>
+          <th>{{ $t("horseList.table.headers.color") }}</th>
         </tr>
       </thead>
       <tbody>

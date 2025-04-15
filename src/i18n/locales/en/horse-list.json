@@ -1,0 +1,10 @@
+{
+  "title": "Horse List",
+  "table": {
+    "headers": {
+      "name": "Name",
+      "condition": "Condition",
+      "color": "Color"
+    }
+  }
+}
