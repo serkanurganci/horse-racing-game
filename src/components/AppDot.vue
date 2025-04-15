@@ -1,6 +1,6 @@
 <template>
   <div
-    class="dot"
+    class="rounded-full inline-block align-middle"
     :style="{
       backgroundColor: color,
       width: size,
@@ -23,11 +23,3 @@ const props = defineProps({
   },
 });
 </script>
-
-<style scoped>
-.dot {
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
-}
-</style>

@@ -24,19 +24,3 @@ defineProps({
   },
 });
 </script>
-
-<style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-thead {
-  background-color: #f5f5f5;
-}
-th,
-td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-</style>

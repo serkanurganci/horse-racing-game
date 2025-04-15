@@ -1,16 +1,24 @@
 <template>
   <div class="data-table">
-    <table>
-      <thead>
+    <table class="w-full border-collapse">
+      <thead class="bg-gray-100">
         <tr>
-          <th v-for="header in headers" :key="header.key">
+          <th
+            v-for="header in headers"
+            :key="header.key"
+            class="p-2 border border-gray-300 text-left"
+          >
             {{ header.label }}
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in items" :key="index">
-          <td v-for="header in headers" :key="header.key">
+          <td
+            v-for="header in headers"
+            :key="header.key"
+            class="p-2 border border-gray-300 text-left"
+          >
             <slot :name="header.key" :item="item" :index="index">
               {{ item[header.key] }}
             </slot>
@@ -26,7 +34,6 @@ defineProps({
   headers: {
     type: Array,
     required: true,
-    // Example: [{ key: 'name', label: 'Name' }]
   },
   items: {
     type: Array,
@@ -34,19 +41,3 @@ defineProps({
   },
 });
 </script>
-
-<style scoped>
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-thead {
-  background-color: #f5f5f5;
-}
-th,
-td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-</style>
