@@ -32,6 +32,16 @@ export const horseColors = [
   "Pink",
   "Gray",
   "Brown",
+  "Lime",
+  "Maroon",
+  "Navy",
+  "Turquoise",
+  "Gold",
+  "Silver",
+  "Crimson",
+  "Indigo",
+  "Violet",
+  "Teal",
 ];
 
 export const raceLengths = [1200, 1400, 1600, 1800, 2000, 2200];

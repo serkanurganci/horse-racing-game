@@ -20,6 +20,4 @@ import { ProgramList } from "@/modules/programs";
 import { RaceTrack } from "@/modules/race-track";
 import { ResultsList } from "@/modules/results";
 import { useStore } from "vuex";
-
-const store = useStore();
 </script>

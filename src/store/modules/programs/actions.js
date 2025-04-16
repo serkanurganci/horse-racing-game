@@ -1,4 +1,5 @@
 import { raceLengths } from "@/utils/constants/horses";
+import { generateRandomizedHorse } from "@/utils/horse-generator";
 
 export default {
   generateRaces({ commit, rootState }) {
@@ -6,12 +7,19 @@ export default {
     const races = {};
 
     raceLengths.forEach((length) => {
-      const shuffled = [...horses].sort(() => Math.random() - 0.5);
-      races[length] = shuffled.slice(0, 10).map((horse, index) => ({
-        position: index + 1,
-        name: horse.name,
-        color: horse.color,
-      }));
+      const selectedHorses = [...horses]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 10);
+
+      races[length] = selectedHorses.map((horse, index) => {
+        const raceHorse = generateRandomizedHorse(horse.id);
+        return {
+          position: index + 1,
+          name: horse.name,
+          color: horse.color,
+          condition: raceHorse.condition,
+        };
+      });
     });
 
     commit("SET_RACES", races);
