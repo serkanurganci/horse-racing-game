@@ -1,0 +1,10 @@
+{
+  "title": "Results",
+  "datatable": {
+    "headers": {
+      "position": "Position",
+      "name": "Name"
+    }
+  },
+  "lapTitle": "{st}ST Lap - {m}m"
+}
