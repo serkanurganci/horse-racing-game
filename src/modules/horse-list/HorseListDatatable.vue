@@ -1,7 +1,7 @@
 <template>
-  <AppDataTable :headers="headers" :items="horses">
+  <AppDataTable :title="title" :headers="headers" :items="horses">
     <template #color="{ item }">
-      <span>
+      <span class="flex items-center gap-1">
         <AppDot :color="item.color" />
         {{ item.color }}
       </span>
@@ -12,8 +12,12 @@
 <script setup>
 import AppDataTable from "@/containers/AppDataTable.vue";
 import AppDot from "@/components/AppDot.vue";
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 
-defineProps({
+const { t } = useI18n();
+
+const props = defineProps({
   headers: {
     type: Array,
     required: true,
@@ -23,4 +27,8 @@ defineProps({
     required: true,
   },
 });
+
+const title = computed(
+  () => `${t("horseList.title")} (1 - ${props.horses.length})`
+);
 </script>

@@ -1,12 +1,12 @@
 <template>
-  <div v-if="Object.keys(programs).length">
-    <h2>{{ $t("programs.title") }}</h2>
-    <template v-for="length in raceLengths" :key="length">
-      <h3>
-        {{ $t("programs.lapTitle", { st: length, m: length }) }}
-      </h3>
-
-      <ProgramListDatatable :headers="headers" :programs="programs[length]" />
+  <div class="flex flex-col gap-4" v-if="Object.keys(programs).length">
+    <template v-for="(length, index) in raceLengths" :key="length">
+      <ProgramListDatatable
+        :length="length"
+        :st="index + 1"
+        :headers="headers"
+        :programs="programs[length]"
+      />
     </template>
   </div>
 </template>

@@ -1,27 +1,46 @@
 <template>
-  <div
-    ref="trackContainer"
-    class="relative h-[300px] w-full overflow-hidden border border-black"
-  >
-    <div class="absolute top-0 bottom-0 right-0 w-[4px] bg-red-500 z-10"></div>
-
-    <div class="flex flex-col gap-2 h-full p-1">
+  <div v-if="Object.keys(currentRace).length">
+    <AppHeaderText size="medium" class="text-center mb-4">
+      {{
+        $t("raceTrack.lapTitle", {
+          st: currentRaceIndex + 1,
+          m: raceLengths[currentRaceIndex],
+        })
+      }}
+    </AppHeaderText>
+    <div ref="trackContainer" class="relative w-full">
+      <FinishFlagIcon class="absolute -top-8 -right-6 w-8 z-20" />
       <div
-        v-for="(horse, i) in currentRace"
-        :key="i"
-        class="relative border-b border-gray-300 h-[30px]"
-      >
+        class="absolute top-0 bottom-0 right-0 w-[4px] bg-red-500 z-10"
+      ></div>
+
+      <div class="flex flex-col h-full p-1 overflow-hidden">
         <div
-          class="absolute left-0 w-[30px] h-full bg-gray-200 flex items-center justify-center"
+          v-for="({ color }, i) in currentRace"
+          :key="i"
+          :class="[
+            'relative border-b border-dashed border-gray-500 h-[60px]',
+            { 'border-t': i === 0 },
+          ]"
         >
-          {{ i + 1 }}
+          <div
+            class="absolute left-0 w-[30px] h-full bg-green-700 text-white flex items-center justify-center"
+          >
+            {{ i + 1 }}
+          </div>
+
+          <HorseIcon
+            class="absolute h-[30px] transition-transform duration-75 ease-linear mt-4"
+            :class="{ 'animate-horse-gallop': isRaceRunning }"
+            :color="color"
+            :style="{
+              left: '30px',
+              transform: `translateX(${positions[i]}px) ${
+                isRaceRunning ? 'translateY(var(--gallop-y))' : ''
+              }`,
+            }"
+          />
         </div>
-        <img
-          class="absolute h-[30px] transition-transform duration-75 ease-linear"
-          src="@/assets/horse.svg"
-          alt="horse"
-          :style="{ left: '30px', transform: `translateX(${positions[i]}px)` }"
-        />
       </div>
     </div>
   </div>
@@ -31,6 +50,8 @@
 import { ref, computed, watch, onBeforeUnmount } from "vue";
 import { useStore } from "vuex";
 import { raceLengths } from "@/utils/constants/horses";
+import { HorseIcon, FinishFlagIcon } from "@/assets/icons";
+import AppHeaderText from "@/components/AppHeaderText.vue";
 
 const store = useStore();
 const positions = ref([]);
@@ -113,3 +134,41 @@ onBeforeUnmount(() => {
   clearInterval(interval);
 });
 </script>
+
+<style>
+@keyframes horse-gallop {
+  0% {
+    --gallop-y: 0px;
+    --gallop-x: 0px;
+  }
+  15% {
+    --gallop-y: -4px;
+    --gallop-x: 2px;
+  }
+  30% {
+    --gallop-y: -2px;
+    --gallop-x: 4px;
+  }
+  50% {
+    --gallop-y: 0px;
+    --gallop-x: 0px;
+  }
+  65% {
+    --gallop-y: 4px;
+    --gallop-x: -2px;
+  }
+  80% {
+    --gallop-y: 2px;
+    --gallop-x: -4px;
+  }
+  100% {
+    --gallop-y: 0px;
+    --gallop-x: 0px;
+  }
+}
+
+.animate-horse-gallop {
+  animation: horse-gallop 0.4s infinite;
+  transform: translate(var(--gallop-x), var(--gallop-y));
+}
+</style>

@@ -1,19 +1,20 @@
 <template>
-  <div>
-    <AppHeader />
-    <div class="flex justify-between gap-4">
-      <HorseList class="w-auto" />
-      <div class="flex-1">
-        <RaceTrack />
-      </div>
-      <ProgramList class="w-auto" />
+  <div class="flex justify-between gap-6 py-6 max-h-[calc(100vh-96px)]">
+    <HorseList class="w-auto" />
+    <div class="flex-1">
+      <RaceTrack />
+    </div>
+    <div
+      class="flex flex-shrink-0 gap-4 w-auto overflow-y-auto overflow-x-hidden pl-2 pr-6"
+      style="height: calc(100vh - 144px)"
+    >
+      <ProgramList />
       <ResultsList />
     </div>
   </div>
 </template>
 
 <script setup>
-import AppHeader from "@/containers/AppHeader.vue";
 import { HorseList } from "@/modules/horse-list";
 import { ProgramList } from "@/modules/programs";
 import { RaceTrack } from "@/modules/race-track";

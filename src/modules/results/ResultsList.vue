@@ -1,19 +1,13 @@
 <template>
-  <div>
-    <h2>{{ $t("results.title") }}</h2>
-    <div>
-      <template v-for="length in raceLengths" :key="length">
-        <div v-if="raceResults[length]">
-          <h3>{{ length }}ST Lap - {{ length }}m</h3>
-          <div>
-            <ResultListDatatable
-              :headers="headers"
-              :items="getRaceResults(length)"
-            />
-          </div>
-        </div>
-      </template>
-    </div>
+  <div class="flex flex-col gap-4" v-if="Object.keys(programs).length">
+    <template v-for="(length, index) in raceLengths" :key="length">
+      <ResultListDatatable
+        :headers="headers"
+        :st="index + 1"
+        :items="getRaceResults(length)"
+        :length="length"
+      />
+    </template>
   </div>
 </template>
 
@@ -33,6 +27,7 @@ const headers = getDatatableHeaders.map(({ key, i18nKey }) => ({
 }));
 
 const raceResults = computed(() => store.state.results.raceResults);
+const programs = computed(() => store.getters["programs/allRaces"]);
 
 const getRaceResults = (length) => {
   if (!raceResults.value[length]) return [];

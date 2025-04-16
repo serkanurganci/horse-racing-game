@@ -10,6 +10,7 @@ export default {
       races[length] = shuffled.slice(0, 10).map((horse, index) => ({
         position: index + 1,
         name: horse.name,
+        color: horse.color,
       }));
     });
 

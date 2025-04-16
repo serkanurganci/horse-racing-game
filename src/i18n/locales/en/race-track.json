@@ -1,3 +1,4 @@
 {
-  "startPause": "START / PAUSE"
+  "startPause": "START / PAUSE",
+  "lapTitle": "{st}.st Lap {m}m"
 }

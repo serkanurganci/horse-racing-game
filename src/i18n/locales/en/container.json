@@ -1,5 +1,8 @@
 {
   "AppHeader": {
     "title": "Horse Racing"
+  },
+  "AppDataTable": {
+    "noData": "No data available"
   }
 }

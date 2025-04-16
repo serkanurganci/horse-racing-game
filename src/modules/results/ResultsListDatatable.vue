@@ -1,11 +1,20 @@
 <template>
-  <AppDataTable :headers="headers" :items="programs"> </AppDataTable>
+  <AppDataTable
+    :headers="headers"
+    :items="programs"
+    :title="title"
+    :subtitle="subtitle"
+  >
+  </AppDataTable>
 </template>
 
 <script setup>
 import AppDataTable from "@/containers/AppDataTable.vue";
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
-defineProps({
+const props = defineProps({
   headers: {
     type: Array,
     required: true,
@@ -14,5 +23,12 @@ defineProps({
     type: Array,
     required: true,
   },
+  length: Number,
+  st: Number,
 });
+
+const title = computed(() => t("results.title"));
+const subtitle = computed(() =>
+  t("results.lapTitle", { st: props.st, m: props.length })
+);
 </script>
