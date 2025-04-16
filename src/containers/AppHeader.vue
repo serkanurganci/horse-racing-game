@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <AppButton @click="generateProgram">{{
-      $t("programs.generateProgram")
-    }}</AppButton>
-    <AppButton @click="startPauseToggle">{{
-      $t("raceTrack.startPause")
-    }}</AppButton>
+  <div class="min-h-20 flex items-center justify-between">
+    <h1 class="text-center">{{ $t("container.AppHeader.title") }}</h1>
+
+    <div class="flex items-center">
+      <AppButton @click="generateProgram">{{
+        $t("programs.generateProgram")
+      }}</AppButton>
+      <AppButton @click="startPauseToggle">{{
+        $t("raceTrack.startPause")
+      }}</AppButton>
+    </div>
   </div>
 </template>
 
