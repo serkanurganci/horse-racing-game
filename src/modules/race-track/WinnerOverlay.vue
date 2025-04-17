@@ -7,7 +7,7 @@
       <h2 class="text-2xl font-bold text-green-700 mb-2">
         {{ $t("raceTrack.winner") }}
       </h2>
-      <p class="text-xl">{{ winner }}</p>
+      <p class="text-xl">🏆 {{ winner }} 🏆</p>
     </div>
   </div>
 </template>
