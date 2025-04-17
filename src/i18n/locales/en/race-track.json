@@ -1,4 +1,5 @@
 {
   "startPause": "START / PAUSE",
-  "lapTitle": "{st}.st Lap {m}m"
+  "lapTitle": "{st}.st Lap {m}m",
+  "winner": "Winner!"
 }

@@ -24,7 +24,7 @@
                 v-for="header in headers"
                 :key="header.key"
                 scope="col"
-                class="px-4 py-3 text-center font-semibold text-gray-800 uppercase tracking-wider whitespace-nowrap border-r border-gray-200 last:border-r-0"
+                class="px-2 py-1.5 text-center font-semibold text-gray-800 uppercase tracking-wider whitespace-nowrap border-r border-gray-200 last:border-r-0"
               >
                 {{ header.label }}
               </th>

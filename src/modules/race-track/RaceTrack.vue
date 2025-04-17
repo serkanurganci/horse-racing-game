@@ -14,6 +14,10 @@
         class="absolute top-0 bottom-0 right-0 w-[4px] bg-red-500 z-10"
       ></div>
 
+      <WinnerOverlay :winner="winner" />
+
+      <CountdownOverlay :countdown="countdown" />
+
       <div class="flex flex-col h-full p-1 overflow-hidden">
         <div
           v-for="({ color }, i) in currentRace"
@@ -31,12 +35,16 @@
 
           <HorseIcon
             class="absolute h-[30px] transition-transform duration-75 ease-linear mt-4"
-            :class="{ 'animate-horse-gallop': isRaceRunning }"
+            :class="{
+              'animate-horse-gallop': isRaceRunning && countdown === 0,
+            }"
             :color="color"
             :style="{
               left: '30px',
               transform: `translateX(${positions[i]}px) ${
-                isRaceRunning ? 'translateY(var(--gallop-y))' : ''
+                isRaceRunning && countdown === 0
+                  ? 'translateY(var(--gallop-y))'
+                  : ''
               }`,
             }"
           />
@@ -52,13 +60,19 @@ import { useStore } from "vuex";
 import { raceLengths } from "@/utils/constants/horses";
 import { HorseIcon, FinishFlagIcon } from "@/assets/icons";
 import AppHeaderText from "@/components/AppHeaderText.vue";
+import WinnerOverlay from "./WinnerOverlay.vue";
+import CountdownOverlay from "./CountdownOverlay.vue";
 
 const store = useStore();
 const positions = ref([]);
 const trackContainer = ref(null);
+const winner = ref(null);
+const countdown = ref(0);
 let interval = null;
+let countdownInterval = null;
 
 const isRaceRunning = computed(() => store.state.programs.isRaceRunning);
+const isPaused = computed(() => store.state.programs.isPaused);
 const currentRaceIndex = computed(() => store.state.programs.currentRaceIndex);
 const races = computed(() => store.state.programs.races);
 
@@ -67,17 +81,40 @@ const currentRace = computed(() => {
   return races.value[length] || [];
 });
 
-const startRace = () => {
+const startCountdown = () => {
+  countdown.value = 3;
+  return new Promise((resolve) => {
+    countdownInterval = setInterval(() => {
+      countdown.value--;
+      if (countdown.value === 0) {
+        clearInterval(countdownInterval);
+        resolve();
+      }
+    }, 1000);
+  });
+};
+
+const startRace = async () => {
+  if (!isPaused.value) {
+    positions.value = currentRace.value.map(() => 0);
+    winner.value = null;
+    await startCountdown();
+  }
+
   const maxDistance = trackContainer.value
     ? trackContainer.value.clientWidth - 60
     : 770;
-  positions.value = currentRace.value.map(() => 0);
+
   const finishedHorses = new Set();
   const finishOrder = [];
   const startTime = Date.now();
 
   interval = setInterval(() => {
     positions.value = positions.value.map((pos, index) => {
+      if (finishedHorses.has(index)) {
+        return pos;
+      }
+
       const speed = Math.random() * 7;
       const newPos = Math.min(pos + speed, maxDistance);
 
@@ -89,6 +126,10 @@ const startRace = () => {
           finishTime,
           index,
         });
+
+        if (finishOrder.length === 1) {
+          winner.value = currentRace.value[index].name;
+        }
       }
 
       return newPos;
@@ -127,11 +168,19 @@ watch(isRaceRunning, (newVal) => {
     startRace();
   } else {
     clearInterval(interval);
+    clearInterval(countdownInterval);
+    countdown.value = 0;
   }
+});
+
+watch(currentRaceIndex, () => {
+  winner.value = null;
+  countdown.value = 0;
 });
 
 onBeforeUnmount(() => {
   clearInterval(interval);
+  clearInterval(countdownInterval);
 });
 </script>
 

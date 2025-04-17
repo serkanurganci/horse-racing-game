@@ -2,7 +2,7 @@
   <div
     class="bg-gradient-to-r from-green-800 to-green-400 text-white shadow-lg"
   >
-    <div class="container mx-auto px-4 md:px-6 lg:px-8">
+    <div class="mx-auto px-4 md:px-6 lg:px-8">
       <div class="min-h-24 flex items-center justify-between">
         <div class="flex items-center gap-4">
           <HorseIcon class="w-10" />
@@ -33,8 +33,10 @@ import { HorseIcon } from "@/assets/icons";
 const store = useStore();
 
 const generateProgram = async () => {
+  store.commit("programs/RESET_STATE");
   await store.dispatch("horses/generateHorses");
   await store.dispatch("programs/generateRaces");
+  store.commit("results/CLEAR_RESULTS");
 };
 
 const startPauseToggle = () => {

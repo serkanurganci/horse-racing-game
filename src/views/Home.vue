@@ -1,6 +1,8 @@
 <template>
   <div class="flex justify-between gap-6 py-6 max-h-[calc(100vh-96px)]">
-    <HorseList class="w-auto" />
+    <HorseList
+      class="w-auto flex flex-shrink-0 overflow-y-auto overflow-x-hidden pr-6"
+    />
     <div class="flex-1">
       <RaceTrack />
     </div>
